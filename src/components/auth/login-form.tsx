@@ -9,7 +9,10 @@ import { useToast } from "@/components/providers/toast-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const initialState = { status: "idle" as const, message: "" };
+const initialState = {
+  status: "idle" as const,
+  message: undefined as string | undefined,
+};
 
 export function LoginForm() {
   const [state, formAction, pending] = useActionState(signInAction, initialState);

@@ -11,12 +11,17 @@ import { Button } from "@/components/ui/button";
 import { APP_LANGUAGES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import type { AuthenticatedAdmin } from "@/lib/types";
+import type { Route } from "next";
 
 const navItems = [
   { href: "/dashboard", icon: BarChart3, labelKey: "nav.dashboard" as const },
   { href: "/entrepreneurs", icon: Database, labelKey: "nav.entrepreneurs" as const },
   { href: "/import-export", icon: FileSpreadsheet, labelKey: "nav.importExport" as const },
-];
+] satisfies Array<{
+  href: Route;
+  icon: typeof BarChart3;
+  labelKey: "nav.dashboard" | "nav.entrepreneurs" | "nav.importExport";
+}>;
 
 type DashboardShellProps = {
   children: React.ReactNode;

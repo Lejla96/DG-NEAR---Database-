@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useState } from "react";
 import { Save } from "lucide-react";
 
 import {
@@ -36,15 +36,9 @@ export function EntrepreneurForm({ entrepreneur }: Props) {
   const action = entrepreneur ? updateEntrepreneurAction : createEntrepreneurAction;
   const [state, formAction, isPending] = useActionState(action, initialState);
   const { language, t } = useLanguage();
-  const [selectedServices, setSelectedServices] = useState<string[]>(
+  const [selectedServices, setSelectedServices] = useState<string[]>(() =>
     entrepreneur?.support_services ?? [],
   );
-
-  useEffect(() => {
-    if (state.status === "success" && !entrepreneur) {
-      setSelectedServices([]);
-    }
-  }, [entrepreneur, state.status]);
 
   return (
     <Card className="card-surface">

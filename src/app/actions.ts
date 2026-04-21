@@ -25,8 +25,6 @@ import {
   loginSchema,
 } from "@/lib/validation";
 
-const INITIAL_STATE: ActionState = { status: "idle" };
-
 function getLanguage(formData: FormData): AppLanguage {
   return formData.get("language") === "mk" ? "mk" : "en";
 }
@@ -37,6 +35,10 @@ function buildActionState(
   issues?: ImportIssue[],
 ): ActionState {
   return { status, message, issues };
+}
+
+function toFormValue(value: unknown) {
+  return value as FormDataEntryValue | null | undefined;
 }
 
 async function getAuthorizedContext() {
@@ -241,22 +243,24 @@ export async function importEntrepreneursAction(rows: unknown[]): Promise<Action
   rows.forEach((row, index) => {
     const record = row as Record<string, unknown>;
     const parsed = importRowSchema.safeParse({
-      name: normalizeString(record.name ?? record.Name),
-      surname: normalizeString(record.surname ?? record.Surname),
-      phone_number: normalizeString(record.phone_number ?? record["Phone Number"]),
-      city: normalizeString(record.city ?? record.City),
-      email: normalizeString(record.email ?? record.Email).toLowerCase(),
-      business_status: normalizeString(
-        record.business_status ?? record["Business Status"],
+      name: normalizeString(toFormValue(record.name ?? record.Name)),
+      surname: normalizeString(toFormValue(record.surname ?? record.Surname)),
+      phone_number: normalizeString(
+        toFormValue(record.phone_number ?? record["Phone Number"]),
       ),
-      gender: normalizeString(record.gender ?? record.Gender),
-      age: parseNumber(record.age ?? record.Age),
+      city: normalizeString(toFormValue(record.city ?? record.City)),
+      email: normalizeString(toFormValue(record.email ?? record.Email)).toLowerCase(),
+      business_status: normalizeString(
+        toFormValue(record.business_status ?? record["Business Status"]),
+      ),
+      gender: normalizeString(toFormValue(record.gender ?? record.Gender)),
+      age: parseNumber(toFormValue(record.age ?? record.Age)),
       support_services: normalizeServiceList(
         String(record.support_services ?? record["Support Services"] ?? "")
           .split(/[;,]/)
           .map((item) => item.trim()),
       ),
-      notes: normalizeString(record.notes ?? record.Notes) || null,
+      notes: normalizeString(toFormValue(record.notes ?? record.Notes)) || null,
     });
 
     if (!parsed.success) {

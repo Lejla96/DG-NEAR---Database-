@@ -89,7 +89,17 @@ export default async function DashboardPage({ searchParams }: PageProps) {
                   <div key={entry.id} className="activity-item">
                     <strong>{entry.actor_name ?? entry.actor_email ?? "Admin"}</strong>
                     <p>
-                      {dictionary[`activity.${entry.action}` as const]}
+                      {
+                        dictionary[
+                          `activity.${entry.action}` as
+                            | "activity.created"
+                            | "activity.updated"
+                            | "activity.deleted"
+                            | "activity.imported"
+                            | "activity.exported"
+                            | "activity.signed_in"
+                        ]
+                      }
                       {entry.entrepreneur_name ? `: ${entry.entrepreneur_name}` : ""}
                     </p>
                     <span>{formatDate(entry.created_at, locale)}</span>

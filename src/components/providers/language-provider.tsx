@@ -4,7 +4,6 @@ import {
   createContext,
   type ReactNode,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -25,14 +24,18 @@ const STORAGE_KEY = "dg-near-2-language";
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<AppLanguage>("en");
+  const [language, setLanguageState] = useState<AppLanguage>(() => {
+    if (typeof window === "undefined") {
+      return "en";
+    }
 
-  useEffect(() => {
     const storedValue = window.localStorage.getItem(STORAGE_KEY);
     if (storedValue && APP_LANGUAGES.includes(storedValue as AppLanguage)) {
-      setLanguageState(storedValue as AppLanguage);
+      return storedValue as AppLanguage;
     }
-  }, []);
+
+    return "en";
+  });
 
   const setLanguage = (value: AppLanguage) => {
     setLanguageState(value);

@@ -14,17 +14,17 @@ type ExportButtonProps = {
 
 function base64ToBlob(base64: string, mimeType: string) {
   const byteCharacters = atob(base64);
-  const byteArrays: Uint8Array[] = [];
+  const chunks: BlobPart[] = [];
 
   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
     const slice = byteCharacters.slice(offset, offset + 512);
     const byteNumbers = Array.from(slice).map((character) =>
       character.charCodeAt(0),
     );
-    byteArrays.push(new Uint8Array(byteNumbers));
+    chunks.push(new Uint8Array(byteNumbers));
   }
 
-  return new Blob(byteArrays, { type: mimeType });
+  return new Blob(chunks, { type: mimeType });
 }
 
 export function ExportButton({

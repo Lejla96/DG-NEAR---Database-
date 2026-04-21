@@ -111,6 +111,7 @@ export type TranslationKey =
   | "activity.updated"
   | "activity.deleted"
   | "activity.imported"
+  | "activity.signed_in"
   | "activity.exported";
 
 export type Dictionary = Record<TranslationKey, string>;
@@ -224,6 +225,7 @@ const en: Dictionary = {
   "activity.updated": "updated entrepreneur",
   "activity.deleted": "deleted entrepreneur",
   "activity.imported": "imported entrepreneurs",
+  "activity.signed_in": "signed in",
   "activity.exported": "exported entrepreneur data",
 };
 
@@ -336,6 +338,7 @@ const mk: Dictionary = {
   "activity.updated": "ажурираше претприемач",
   "activity.deleted": "избриша претприемач",
   "activity.imported": "увезе претприемачи",
+  "activity.signed_in": "се најави",
   "activity.exported": "извезе податоци за претприемачи",
 };
 

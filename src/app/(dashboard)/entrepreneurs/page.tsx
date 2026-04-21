@@ -253,7 +253,12 @@ export default async function EntrepreneursPage({ searchParams }: PageProps) {
                         >
                           {dictionary["common.edit"]}
                         </a>
-                        <form action={deleteEntrepreneurAction}>
+                        <form
+                          action={async (formData) => {
+                            "use server";
+                            await deleteEntrepreneurAction(formData);
+                          }}
+                        >
                           <input type="hidden" name="id" value={entrepreneur.id} />
                           <input type="hidden" name="language" value={locale} />
                           <Button type="submit" variant="danger" className="button-small">
