@@ -1,6 +1,10 @@
 import type { AppLanguage, BusinessStatus, Gender, SupportService } from "@/lib/types";
 
-export const ADMIN_EMAILS = ["martina@redi-ngo.eu", "lejla@redi-ngo.eu"] as const;
+export const ADMIN_EMAILS = [
+  "martina@redi-ngo.eu",
+  "lejla@redi-ngo.eu",
+  "redimk@redi-ngo.eu",
+] as const;
 
 export const APP_LANGUAGES: AppLanguage[] = ["en", "mk"];
 

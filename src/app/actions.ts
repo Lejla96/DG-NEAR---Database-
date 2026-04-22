@@ -5,7 +5,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import {
-  ADMIN_EMAILS,
   entrepreneurSelectableFields,
   supportServiceLabelMap,
 } from "@/lib/constants";
@@ -52,7 +51,13 @@ async function getAuthorizedContext() {
   }
 
   const email = user.email.toLowerCase();
-  if (!ADMIN_EMAILS.includes(email as (typeof ADMIN_EMAILS)[number])) {
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("id, email, role")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile || profile.role !== "admin" || profile.email.toLowerCase() !== email) {
     throw new Error("Unauthorized");
   }
 
@@ -111,9 +116,6 @@ export async function signInAction(
   }
 
   const email = parsed.data.email.toLowerCase();
-  if (!ADMIN_EMAILS.includes(email as (typeof ADMIN_EMAILS)[number])) {
-    return buildActionState("error", t["messages.unauthorized"]);
-  }
 
   const supabase = await createServerSupabaseClient();
   const { error } = await supabase.auth.signInWithPassword({
@@ -406,9 +408,10 @@ export async function exportEntrepreneursAction(
 
 export async function inviteDefaultAdminsAction() {
   const admin = createAdminSupabaseClient();
+  const defaultAdmins = ["martina@redi-ngo.eu", "lejla@redi-ngo.eu"];
 
   await Promise.all(
-    ADMIN_EMAILS.map((email) =>
+    defaultAdmins.map((email) =>
       admin.auth.admin.inviteUserByEmail(email, {
         redirectTo: process.env.NEXT_PUBLIC_SITE_URL
           ? `${process.env.NEXT_PUBLIC_SITE_URL}/login`
@@ -421,5 +424,5 @@ export async function inviteDefaultAdminsAction() {
     ),
   );
 
-  return { invited: ADMIN_EMAILS.length };
+  return { invited: defaultAdmins.length };
 }

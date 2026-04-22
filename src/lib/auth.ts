@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 
-import { ADMIN_EMAILS } from "@/lib/constants";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import type { AuthenticatedAdmin } from "@/lib/types";
 
@@ -12,11 +11,6 @@ export async function getAuthenticatedAdmin(): Promise<AuthenticatedAdmin> {
 
   if (!user?.id || !user.email) {
     redirect("/login");
-  }
-
-  const normalizedEmail = user.email.toLowerCase();
-  if (!ADMIN_EMAILS.includes(normalizedEmail as (typeof ADMIN_EMAILS)[number])) {
-    redirect("/login?error=unauthorized");
   }
 
   const { data: profile } = await supabase
