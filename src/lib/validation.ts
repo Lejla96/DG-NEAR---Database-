@@ -13,13 +13,21 @@ export const loginSchema = z.object({
 
 export const entrepreneurSchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
-  surname: z.string().trim().min(1, "Surname is required"),
-  phone_number: z.string().trim().min(1, "Phone number is required"),
+  surname: z.string().trim().optional().nullable(),
+  phone_number: z.string().trim().optional().nullable(),
   city: z.string().trim().min(1, "City is required"),
-  email: z.string().trim().email("A valid email address is required"),
+  email: z
+    .union([z.string().trim().email("A valid email address is required"), z.literal("")])
+    .optional()
+    .transform((value) => value || null),
   business_status: z.enum(BUSINESS_STATUSES),
   gender: z.enum(GENDERS),
-  age: z.coerce.number().int().min(16).max(120),
+  age: z
+    .union([z.coerce.number().int().min(16).max(120), z.nan()])
+    .transform((value) => (Number.isNaN(value) ? null : value)),
+  mapped: z
+    .union([z.boolean(), z.string(), z.null(), z.undefined()])
+    .transform((value) => value === true || value === "true" || value === "on"),
   support_services: z
     .array(z.enum(SUPPORT_SERVICES))
     .min(1, "Select at least one support service"),

@@ -119,6 +119,7 @@ export const entrepreneurSelectableFields = `
   business_status,
   gender,
   age,
+  mapped,
   support_services,
   notes,
   created_by,

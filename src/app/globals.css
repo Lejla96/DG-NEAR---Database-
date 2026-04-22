@@ -672,6 +672,22 @@
   width: auto;
 }
 
+.mapped-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.88);
+  font-weight: 600;
+}
+
+.mapped-toggle input {
+  width: auto;
+}
+
 .actions-row {
   display: flex;
   flex-wrap: wrap;

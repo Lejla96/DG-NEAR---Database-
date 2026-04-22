@@ -21,7 +21,10 @@ export async function getAuthenticatedAdmin(): Promise<AuthenticatedAdmin> {
     .eq("id", user.id)
     .single();
 
-  if (!profile || profile.role !== "admin") {
+  if (
+    !profile ||
+    (profile.role !== "admin" && profile.role !== "super_admin")
+  ) {
     redirect("/login?error=unauthorized");
   }
 
@@ -29,6 +32,6 @@ export async function getAuthenticatedAdmin(): Promise<AuthenticatedAdmin> {
     id: profile.id,
     email: profile.email,
     full_name: profile.full_name,
-    role: "admin",
+    role: profile.role,
   };
 }

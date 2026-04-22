@@ -79,6 +79,7 @@ function mapEntrepreneurFormData(formData: FormData) {
     business_status: normalizeString(formData.get("business_status")),
     gender: normalizeString(formData.get("gender")),
     age: parseNumber(formData.get("age")),
+    mapped: formData.get("mapped") === "on",
     support_services: normalizeServiceList(
       formData.getAll("support_services").map(String),
     ),
@@ -261,6 +262,15 @@ export async function importEntrepreneursAction(rows: unknown[]): Promise<Action
       ),
       gender: normalizeString(toFormValue(record.gender ?? record.Gender)),
       age: parseNumber(toFormValue(record.age ?? record.Age)),
+      mapped:
+        String(record.mapped ?? record.Mapped ?? "")
+          .trim()
+          .toLowerCase() === "true" ||
+        String(record.mapped ?? record.Mapped ?? "")
+          .trim()
+          .toLowerCase() === "yes" ||
+        String(record.mapped ?? record.Mapped ?? "")
+          .trim() === "1",
       support_services: normalizeServiceList(
         String(record.support_services ?? record["Support Services"] ?? "")
           .split(/[;,]/)
@@ -377,6 +387,7 @@ export async function exportEntrepreneursAction(
     { header: "Business Status", key: "business_status", width: 22 },
     { header: "Gender", key: "gender", width: 14 },
     { header: "Age", key: "age", width: 10 },
+    { header: "Mapped", key: "mapped", width: 12 },
     { header: "Support Services", key: "support_services", width: 42 },
     { header: "Notes", key: "notes", width: 42 },
     { header: "Date Added", key: "created_at", width: 24 },
@@ -386,6 +397,7 @@ export async function exportEntrepreneursAction(
   ((data ?? []) as Entrepreneur[]).forEach((row) => {
     sheet.addRow({
       ...row,
+      mapped: row.mapped ? "Yes" : "No",
       support_services: row.support_services
         .map((service) => supportServiceLabelMap[service])
         .join(", "),

@@ -44,6 +44,8 @@ export type TranslationKey =
   | "common.loading"
   | "common.noResults"
   | "common.optional"
+  | "common.yes"
+  | "common.no"
   | "common.downloadTemplate"
   | "common.export"
   | "form.name"
@@ -54,6 +56,8 @@ export type TranslationKey =
   | "form.businessStatus"
   | "form.gender"
   | "form.age"
+  | "form.mapped"
+  | "form.mappedDescription"
   | "form.supportServices"
   | "form.submitCreate"
   | "form.submitUpdate"
@@ -70,6 +74,7 @@ export type TranslationKey =
   | "table.city"
   | "table.gender"
   | "table.age"
+  | "table.mapped"
   | "table.email"
   | "table.phone"
   | "table.notes"
@@ -158,6 +163,8 @@ const en: Dictionary = {
   "common.loading": "Loading",
   "common.noResults": "No records match the current filters.",
   "common.optional": "Optional",
+  "common.yes": "Yes",
+  "common.no": "No",
   "common.downloadTemplate": "Download CSV template",
   "common.export": "Export to Excel",
   "form.name": "Name",
@@ -168,6 +175,8 @@ const en: Dictionary = {
   "form.businessStatus": "Business status",
   "form.gender": "Gender",
   "form.age": "Age",
+  "form.mapped": "Mapped",
+  "form.mappedDescription": "Mark this entrepreneur as mapped.",
   "form.supportServices": "Support services",
   "form.submitCreate": "Create entrepreneur",
   "form.submitUpdate": "Update entrepreneur",
@@ -184,6 +193,7 @@ const en: Dictionary = {
   "table.city": "City",
   "table.gender": "Gender",
   "table.age": "Age",
+  "table.mapped": "Mapped",
   "table.email": "Email",
   "table.phone": "Phone",
   "table.notes": "Notes",
@@ -271,6 +281,8 @@ const mk: Dictionary = {
   "common.loading": "Се вчитува",
   "common.noResults": "Нема записи што одговараат на тековните филтри.",
   "common.optional": "Опционално",
+  "common.yes": "Да",
+  "common.no": "Не",
   "common.downloadTemplate": "Преземи CSV шаблон",
   "common.export": "Извези во Excel",
   "form.name": "Име",
@@ -281,6 +293,8 @@ const mk: Dictionary = {
   "form.businessStatus": "Статус на бизнис",
   "form.gender": "Пол",
   "form.age": "Возраст",
+  "form.mapped": "Мапирано",
+  "form.mappedDescription": "Означи го овој претприемач како мапиран.",
   "form.supportServices": "Услуги за поддршка",
   "form.submitCreate": "Креирај претприемач",
   "form.submitUpdate": "Ажурирај претприемач",
@@ -297,6 +311,7 @@ const mk: Dictionary = {
   "table.city": "Град",
   "table.gender": "Пол",
   "table.age": "Возраст",
+  "table.mapped": "Мапирано",
   "table.email": "Е-пошта",
   "table.phone": "Телефон",
   "table.notes": "Белешки",

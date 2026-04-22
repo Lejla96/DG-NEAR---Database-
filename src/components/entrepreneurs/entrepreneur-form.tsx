@@ -148,6 +148,18 @@ export function EntrepreneurForm({ entrepreneur }: Props) {
             </div>
           </Field>
 
+          <Field label={t["form.mapped"]}>
+            <label className="toggle-option">
+              <input
+                type="checkbox"
+                name="mapped"
+                value="true"
+                defaultChecked={entrepreneur?.mapped ?? false}
+              />
+              <span>{t["form.mappedDescription"]}</span>
+            </label>
+          </Field>
+
           <Field label={t["form.notes"]}>
             <Textarea
               name="notes"

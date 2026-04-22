@@ -29,6 +29,7 @@ export type Entrepreneur = {
   business_status: BusinessStatus;
   gender: Gender;
   age: number;
+  mapped: boolean;
   support_services: SupportService[];
   notes: string | null;
   created_by: string | null;

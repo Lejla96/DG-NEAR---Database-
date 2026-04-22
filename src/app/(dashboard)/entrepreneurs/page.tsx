@@ -200,6 +200,7 @@ export default async function EntrepreneursPage({ searchParams }: PageProps) {
                 <TH>{dictionary["table.status"]}</TH>
                 <TH>{dictionary["table.gender"]}</TH>
                 <TH>{dictionary["table.age"]}</TH>
+                <TH>{dictionary["table.mapped"]}</TH>
                 <TH>{dictionary["table.supportServices"]}</TH>
                 <TH>{dictionary["common.notes"]}</TH>
                 <TH>{dictionary["common.lastUpdated"]}</TH>
@@ -234,6 +235,13 @@ export default async function EntrepreneursPage({ searchParams }: PageProps) {
                     </TD>
                     <TD>{translateGender(entrepreneur.gender, locale)}</TD>
                     <TD>{entrepreneur.age}</TD>
+                    <TD>
+                      <Badge tone={entrepreneur.mapped ? "success" : "neutral"}>
+                        {entrepreneur.mapped
+                          ? dictionary["common.yes"]
+                          : dictionary["common.no"]}
+                      </Badge>
+                    </TD>
                     <TD>
                       <div className="badge-list">
                         {entrepreneur.support_services.map((service) => (
@@ -271,7 +279,7 @@ export default async function EntrepreneursPage({ searchParams }: PageProps) {
                 ))
               ) : (
                 <TR>
-                  <TD colSpan={11} className="empty-cell">
+                  <TD colSpan={12} className="empty-cell">
                     {dictionary["common.noResults"]}
                   </TD>
                 </TR>
