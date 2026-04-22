@@ -51,7 +51,8 @@ async function getAuthorizedContext() {
   }
 
   const email = user.email.toLowerCase();
-  const { data: profile } = await supabase
+  const adminSupabase = createAdminSupabaseClient();
+  const { data: profile } = await adminSupabase
     .from("profiles")
     .select("id, email, role")
     .eq("id", user.id)
@@ -127,7 +128,6 @@ export async function signInAction(
     return buildActionState("error", error.message);
   }
 
-  await logActivity(null, "signed_in", { email });
   redirect("/dashboard");
 }
 

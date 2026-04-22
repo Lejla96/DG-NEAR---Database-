@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { createAdminSupabaseClient } from "@/lib/supabase/admin";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import type { AuthenticatedAdmin } from "@/lib/types";
 
@@ -13,7 +14,8 @@ export async function getAuthenticatedAdmin(): Promise<AuthenticatedAdmin> {
     redirect("/login");
   }
 
-  const { data: profile } = await supabase
+  const adminSupabase = createAdminSupabaseClient();
+  const { data: profile } = await adminSupabase
     .from("profiles")
     .select("id, email, full_name, role")
     .eq("id", user.id)
