@@ -21,6 +21,7 @@ export type TranslationKey =
   | "dashboard.totalEntrepreneurs"
   | "dashboard.registeredBusinesses"
   | "dashboard.notRegisteredBusinesses"
+  | "dashboard.mappedEntrepreneurs"
   | "dashboard.serviceAssignments"
   | "dashboard.serviceCoverage"
   | "dashboard.byCity"
@@ -140,6 +141,7 @@ const en: Dictionary = {
   "dashboard.totalEntrepreneurs": "Total entrepreneurs",
   "dashboard.registeredBusinesses": "Registered businesses",
   "dashboard.notRegisteredBusinesses": "Not registered businesses",
+  "dashboard.mappedEntrepreneurs": "Mapped entrepreneurs",
   "dashboard.serviceAssignments": "Support assignments",
   "dashboard.serviceCoverage": "Beneficiaries by support service",
   "dashboard.byCity": "Entrepreneurs by city",
@@ -258,6 +260,7 @@ const mk: Dictionary = {
   "dashboard.totalEntrepreneurs": "Вкупно претприемачи",
   "dashboard.registeredBusinesses": "Регистрирани бизниси",
   "dashboard.notRegisteredBusinesses": "Нерегистрирани бизниси",
+  "dashboard.mappedEntrepreneurs": "Мапирани претприемачи",
   "dashboard.serviceAssignments": "Доделени услуги",
   "dashboard.serviceCoverage": "Корисници по услуга за поддршка",
   "dashboard.byCity": "Претприемачи по град",

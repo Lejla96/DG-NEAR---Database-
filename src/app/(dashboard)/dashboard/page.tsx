@@ -50,6 +50,10 @@ export default async function DashboardPage({ searchParams }: PageProps) {
           value={formatNumber(data.totals.notRegisteredBusinesses, locale)}
         />
         <MetricCard
+          title={dictionary["dashboard.mappedEntrepreneurs"]}
+          value={formatNumber(data.totals.mappedEntrepreneurs, locale)}
+        />
+        <MetricCard
           title={dictionary["dashboard.serviceAssignments"]}
           value={formatNumber(data.totals.serviceAssignments, locale)}
         />

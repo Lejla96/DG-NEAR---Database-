@@ -81,6 +81,7 @@ export type DashboardData = {
   activity: ActivityLog[];
   totals: {
     entrepreneurs: number;
+    mappedEntrepreneurs: number;
     registeredBusinesses: number;
     notRegisteredBusinesses: number;
     serviceAssignments: number;

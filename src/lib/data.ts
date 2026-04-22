@@ -121,6 +121,7 @@ export async function getDashboardData(filters: FilterState): Promise<DashboardD
     notRegisteredBusinesses: entrepreneurs.filter(
       (record) => record.business_status === "not_registered",
     ).length,
+    mappedEntrepreneurs: entrepreneurs.filter((record) => record.mapped).length,
     serviceAssignments: entrepreneurs.reduce(
       (sum, record) => sum + record.support_services.length,
       0,
