@@ -119,6 +119,18 @@ export function EntrepreneurForm({ entrepreneur }: Props) {
             </Field>
           </div>
 
+          <Field label={t["form.mapped"]}>
+            <label className="toggle-option">
+              <input
+                type="checkbox"
+                name="mapped"
+                value="true"
+                defaultChecked={entrepreneur?.mapped ?? false}
+              />
+              <span>{t["form.mappedDescription"]}</span>
+            </label>
+          </Field>
+
           <Field label={t["form.supportServices"]}>
             <div className="service-grid">
               {SUPPORT_SERVICE_OPTIONS.map((service) => {
@@ -146,18 +158,6 @@ export function EntrepreneurForm({ entrepreneur }: Props) {
                 );
               })}
             </div>
-          </Field>
-
-          <Field label={t["form.mapped"]}>
-            <label className="toggle-option">
-              <input
-                type="checkbox"
-                name="mapped"
-                value="true"
-                defaultChecked={entrepreneur?.mapped ?? false}
-              />
-              <span>{t["form.mappedDescription"]}</span>
-            </label>
           </Field>
 
           <Field label={t["form.notes"]}>
