@@ -30,7 +30,11 @@ export async function getCurrentUserProfile(): Promise<AuthenticatedAdmin | null
     .eq("id", user.id)
     .single();
 
-  if (error || !data || data.role !== "admin") {
+  if (
+    error ||
+    !data ||
+    (data.role !== "admin" && data.role !== "super_admin")
+  ) {
     return null;
   }
 

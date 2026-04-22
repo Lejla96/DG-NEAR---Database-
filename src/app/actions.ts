@@ -58,7 +58,11 @@ async function getAuthorizedContext() {
     .eq("id", user.id)
     .single();
 
-  if (!profile || profile.role !== "admin" || profile.email.toLowerCase() !== email) {
+  if (
+    !profile ||
+    (profile.role !== "admin" && profile.role !== "super_admin") ||
+    profile.email.toLowerCase() !== email
+  ) {
     throw new Error("Unauthorized");
   }
 

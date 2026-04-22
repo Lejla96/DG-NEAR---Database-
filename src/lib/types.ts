@@ -10,11 +10,13 @@ export type SupportService =
   | "one_to_one_mentorship"
   | "papposhop_platform";
 
+export type UserRole = "admin" | "super_admin";
+
 export type AuthenticatedAdmin = {
   id: string;
   email: string;
   full_name: string | null;
-  role: "admin";
+  role: UserRole;
 };
 
 export type Entrepreneur = {
