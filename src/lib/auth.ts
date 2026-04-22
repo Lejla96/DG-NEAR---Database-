@@ -16,7 +16,6 @@ export async function getAuthenticatedAdmin(): Promise<AuthenticatedAdmin> {
 
   const normalizedEmail = user.email.toLowerCase();
   if (!ADMIN_EMAILS.includes(normalizedEmail as (typeof ADMIN_EMAILS)[number])) {
-    await supabase.auth.signOut();
     redirect("/login?error=unauthorized");
   }
 
@@ -27,7 +26,6 @@ export async function getAuthenticatedAdmin(): Promise<AuthenticatedAdmin> {
     .single();
 
   if (!profile || profile.role !== "admin") {
-    await supabase.auth.signOut();
     redirect("/login?error=unauthorized");
   }
 
