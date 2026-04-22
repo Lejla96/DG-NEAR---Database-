@@ -66,7 +66,7 @@ async function getAuthorizedContext() {
     throw new Error("Unauthorized");
   }
 
-  return { supabase, user };
+  return { supabase: adminSupabase, user };
 }
 
 function mapEntrepreneurFormData(formData: FormData) {

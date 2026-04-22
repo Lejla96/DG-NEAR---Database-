@@ -4,6 +4,7 @@ import {
   SUPPORT_SERVICE_OPTIONS,
   entrepreneurSelectableFields,
 } from "@/lib/constants";
+import { createAdminSupabaseClient } from "@/lib/supabase/admin";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import type {
   ActivityLog,
@@ -24,7 +25,8 @@ export async function getCurrentUserProfile(): Promise<AuthenticatedAdmin | null
     return null;
   }
 
-  const { data, error } = await supabase
+  const adminSupabase = createAdminSupabaseClient();
+  const { data, error } = await adminSupabase
     .from("profiles")
     .select("id, email, full_name, role")
     .eq("id", user.id)
@@ -54,9 +56,31 @@ function buildDistribution(values: string[]) {
 
 export async function getDashboardData(filters: FilterState): Promise<DashboardData> {
   noStore();
-  const supabase = await createServerSupabaseClient();
+  const authSupabase = await createServerSupabaseClient();
+  const {
+    data: { user },
+  } = await authSupabase.auth.getUser();
 
-  let query = supabase
+  if (!user?.id) {
+    throw new Error("Unauthorized");
+  }
+
+  const adminSupabase = createAdminSupabaseClient();
+  const { data: profile, error: profileError } = await adminSupabase
+    .from("profiles")
+    .select("id, role")
+    .eq("id", user.id)
+    .single();
+
+  if (
+    profileError ||
+    !profile ||
+    (profile.role !== "admin" && profile.role !== "super_admin")
+  ) {
+    throw new Error("Unauthorized");
+  }
+
+  let query = adminSupabase
     .from("entrepreneurs")
     .select(entrepreneurSelectableFields)
     .order("created_at", { ascending: false });
@@ -121,7 +145,7 @@ export async function getDashboardData(filters: FilterState): Promise<DashboardD
     }),
   );
 
-  const { data: activityData, error: activityError } = await supabase
+  const { data: activityData, error: activityError } = await adminSupabase
     .from("activity_log_view")
     .select("*")
     .order("created_at", { ascending: false })
